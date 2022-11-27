@@ -3,12 +3,26 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 //import App from "./App";
 
-function NewList(name) {
-  return <button onClick={() => console.log("new")}>{name.value}</button>; //need to change onClick handler, currently for testing
+class NewList extends React.Component {
+  renderNewPage() {
+    console.log("new");
+  }
+
+  render() {
+    return <button onClick={this.renderNewPage}>Create New List</button>; //need to change onClick handler, currently for testing
+  }
 }
 
-function EditList(name) {
-  return <button onClick={() => console.log("edit")}>{name.value}</button>; //need to change onClick handler, currently for testing
+class EditList extends React.Component {
+  renderNewPage() {
+    console.log("edit");
+  }
+
+  render() {
+    return (
+      <button onClick={this.renderNewPage}>Edit Existing List</button> //need to change onClick handler, currently for testing
+    );
+  }
 }
 
 class Application extends React.Component {
@@ -20,11 +34,11 @@ class Application extends React.Component {
     return (
       <dl>
         <dt>
-          <NewList value="Create New List" />
+          <NewList />
         </dt>
         <br></br>
         <dt>
-          <EditList value="Edit Existing List" />
+          <EditList />
         </dt>
       </dl>
     );
