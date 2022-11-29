@@ -1,13 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-//import App from "./App";
+import App from "./App";
+
+/*
 
 class NewList extends React.Component {
   renderNewPage() {
     console.log("new");
   }
-
+  
   render() {
     return <button onClick={this.renderNewPage}>Create New List</button>; //need to change onClick handler, currently for testing
   }
@@ -30,6 +32,7 @@ class Application extends React.Component {
       Renders in all the options when you first open the application
       They are rendered in as buttons and named in this function
   */
+ /*
   renderOptions() {
     return (
       <dl>
@@ -57,9 +60,13 @@ class Application extends React.Component {
   }
 }
 
+*/
+
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Application />
+    <App />
   </React.StrictMode>
 );
+
