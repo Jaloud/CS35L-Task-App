@@ -20,6 +20,12 @@ function App() {
     setChecked(updatedList);
   };
 
+  const handleDelete = (id) => {
+    const newList = list.filter((todo) => todo.id != id);
+
+    setList(newList);
+  }
+
   const isChecked = (item) =>
     checked.includes(item) ? "checked-item" : "not-checked-item";
 
@@ -48,6 +54,7 @@ function App() {
       <button onClick={() => addTodo(input)}>Add</button>
       {list.map((todo) => (
         <div key={todo.id}>
+          {todo.todo}
           <br />
           <input type="checkbox" value={todo.todo} onChange={handleCheck} />
           <span className={isChecked(todo.todo)}>{todo.todo + "\t"}</span>
@@ -56,12 +63,13 @@ function App() {
           </label>
           <input
             type="date"
-            onChange={(event) =>
-              this.setState({ startDate: event.target.value })
-            }
+            onChange={(event) =>({ startDate: event.target.value })}
           />
+          <button onClick={() => handleDelete(todo.id)}>x</button>
           <br />
-          <input size="15" type="text" placeholder="notes" />
+          <input size="15" 
+          type="text" 
+          placeholder="notes" />
         </div>
       ))}
     </div>
