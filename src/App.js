@@ -13,24 +13,26 @@ function App() {
 
   const [checked, setChecked] = useState([]);
 
-  const handleCheck = (event) => {
+  const handleCheck = (id) => {
     var updatedList = [...checked];
-    if (event.target.checked) {
-      updatedList = [...checked, event.target.value];
+    if (id.target.checked) {
+      updatedList = [...checked, id.target.value];
+      id.target.style.setProperty('text-decoration', 'line-through');
     } else {
-      updatedList.splice(checked.indexOf(event.target.value), 1);
+      updatedList.splice(checked.indexOf(id.target.value), 1);
+      id.target.style.removeProperty('text-decoration');
     }
     setChecked(updatedList);
   };
-
+  
   const handleDelete = (id) => {
     const newList = list.filter((todo) => todo.id !== id);
 
     setList(newList);
   };
 
-  const isChecked = (item) =>
-    checked.includes(item) ? "checked-item" : "not-checked-item";
+  const isChecked = (item, id) =>
+    checked.includes(item, id) ? "checked-item" : "not-checked-item";
 
   const addTodo = (e) => {
     e.preventDefault();
@@ -68,6 +70,7 @@ function App() {
 
   return (
     <div className="App">
+<<<<<<< HEAD
       <Header />
       <form onSubmit={(e) => addTodo(e)}>
         <input
@@ -127,6 +130,35 @@ function App() {
           </div>
         ))}
       </div>
+=======
+      <h1>Todo App</h1>
+      <input
+        type="text"
+        value={input}
+        placeholder="Add a new task"
+        onChange={handleChange} // text entered in todo
+      />
+      <button onClick={() => addTodo(input)}>Add</button>
+      {list.map((todo) => (
+        <div key={todo.id}>
+          <br />
+          <input type="checkbox" value={todo.id} onChange={handleCheck} />
+          <span className={isChecked(todo.todo, todo.id)}>{todo.todo + "\t"}</span>
+          <label className="task" for="date">
+            (set deadline):{" "}
+          </label>
+          <input
+            type="date"
+            onChange={(event) =>({ startDate: event.target.value })}
+          />
+          <button onClick={() => handleDelete(todo.id)}>x</button>
+          <br />
+          <input size="15" 
+          type="text" 
+          placeholder="notes" />
+        </div>
+      ))}
+>>>>>>> 853a457c (fixed checkbox bug)
     </div>
   );
 }
