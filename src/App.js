@@ -1,5 +1,4 @@
 import React, { useEffect, useState }from "react";
-import ReactDOM from "react-dom/client";
 import "./index.css";
 
 function App() {
@@ -24,7 +23,7 @@ function App() {
   };
 
   const handleDelete = (id) => {
-    const newList = list.filter((todo) => todo.id != id);
+    const newList = list.filter((todo) => todo.id !== id);
 
     setList(newList);
   };
@@ -65,7 +64,7 @@ function App() {
   useEffect(() => {
     console.log(edit);
   }, [edit]);
-  
+
   return (
     <div className="App">
       <h1>Todo App</h1>
