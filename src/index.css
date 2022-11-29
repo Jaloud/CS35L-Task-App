@@ -46,10 +46,14 @@ code {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
+.checked-item {
+  text-decoration: line-through;
+}
+
 button {
   background-color: rgb(84, 0, 129);
   color: rgb(255, 255, 255);
-  padding: 15px 32px;
+  padding: 5px 12px;
   text-align: center;
   text-decoration: none;
   display: inline-block;

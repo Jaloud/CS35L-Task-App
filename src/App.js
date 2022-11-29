@@ -8,6 +8,21 @@ function App() {
     setInput(e.target.value);
   };
 
+  const [checked, setChecked] = useState([]);
+
+  const handleCheck = (event) => {
+    var updatedList = [...checked];
+    if (event.target.checked) {
+      updatedList = [...checked, event.target.value];
+    } else {
+      updatedList.splice(checked.indexOf(event.target.value), 1);
+    }
+    setChecked(updatedList);
+  };
+
+  const isChecked = (item) =>
+    checked.includes(item) ? "checked-item" : "not-checked-item";
+
   const addTodo = (todo) => {
     const newTodo = {
       id: Math.random(),
@@ -33,8 +48,8 @@ function App() {
       <button onClick={() => addTodo(input)}>Add</button>
       {list.map((todo) => (
         <div key={todo.id}>
-          <input type="checkbox" value={todo.todo} />
-          <span>{todo.todo}</span>
+          <input type="checkbox" value={todo.todo} onChange={handleCheck} />
+          <span className={isChecked(todo.todo)}>{todo.todo}</span>
         </div>
       ))}
     </div>
