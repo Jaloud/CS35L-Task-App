@@ -52,6 +52,13 @@ function App() {
     setEdit({ ...edit, index: e });
   };
 
+  const editTodo = () => {
+    list.splice(edit.index, 1, { ...list[edit.index], todo: edit.txt });
+    setList([...list]);
+    setEdit({ index: "", txt: "" });
+    console.log(list);
+  };
+
   return (
     <div className="App">
       <h1>Todo App</h1>
