@@ -59,6 +59,13 @@ function App() {
     console.log(list);
   };
 
+  useEffect(() => {
+    console.log(list);
+  }, [list]);
+  useEffect(() => {
+    console.log(edit);
+  }, [edit]);
+  
   return (
     <div className="App">
       <h1>Todo App</h1>
