@@ -4,17 +4,15 @@ function App() {
   const [input, setInput] = useState("");
   const [list, setList] = useState([]);
 
-  const handleChange = e => {
-    setInput(e.target.value)
-  }
+  const handleChange = (e) => {
+    setInput(e.target.value);
+  };
 
-  
-  const addTodo = todo => {
+  const addTodo = (todo) => {
     const newTodo = {
       id: Math.random(),
       todo: todo,
     };
-    
 
     // add the todo to the list
     setList([...list, newTodo]);
@@ -31,15 +29,14 @@ function App() {
         value={input}
         placeholder="Add a new task"
         onChange={handleChange} // text entered in todo
-        /> 
-        <button onClick={() => addTodo(input)}>Add</button>
-        <ul>
-        {list.map((todo) => (
-          <li key={todo.id}>
-            {todo.todo}
-          </li>
-        ))}
-      </ul>
+      />
+      <button onClick={() => addTodo(input)}>Add</button>
+      {list.map((todo) => (
+        <div key={todo.id}>
+          <input type="checkbox" value={todo.todo} />
+          <span>{todo.todo}</span>
+        </div>
+      ))}
     </div>
   );
 }
