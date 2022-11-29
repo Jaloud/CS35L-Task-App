@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-/*
-test
-*/
+
 function App() {
   const [input, setInput] = useState("");
   const [list, setList] = useState([]);
