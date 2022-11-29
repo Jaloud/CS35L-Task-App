@@ -48,8 +48,20 @@ function App() {
       <button onClick={() => addTodo(input)}>Add</button>
       {list.map((todo) => (
         <div key={todo.id}>
+          <br />
           <input type="checkbox" value={todo.todo} onChange={handleCheck} />
-          <span className={isChecked(todo.todo)}>{todo.todo}</span>
+          <span className={isChecked(todo.todo)}>{todo.todo + "\t"}</span>
+          <label className="task" for="date">
+            (set deadline):{" "}
+          </label>
+          <input
+            type="date"
+            onChange={(event) =>
+              this.setState({ startDate: event.target.value })
+            }
+          />
+          <br />
+          <input size="15" type="text" placeholder="notes" />
         </div>
       ))}
     </div>
