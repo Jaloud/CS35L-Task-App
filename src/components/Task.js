@@ -14,9 +14,6 @@ function Task({ tasks, completeTask, removeTask, editTask }) {
       value: "",
     });
   };
-  if(edit.id){
-
-  }
   if (edit.id) {
     return <TaskForm edit={edit} onSubmit={changeTask} />;
   }
