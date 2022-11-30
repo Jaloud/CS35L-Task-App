@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Header from "./components/header.js";
 import "./index.css";
 
 function App() {
@@ -67,7 +68,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Todo App</h1>
+      <Header />
       <form onSubmit={(e) => addTodo(e)}>
         <input
           type="text"
@@ -84,42 +85,48 @@ function App() {
           onChange={() => setImportant(important === true ? false : true)}
         />
       </form>
-      {list.map((todo, ind) => (
-        <div key={ind}>
-          {edit.index === ind ? (
-            <>
-              <input
-                type="text"
-                placeholder="enter text"
-                value={edit.txt}
-                onChange={(e) => setEdit({ ...edit, txt: e.target.value })}
-              />
-              <button onClick={editTodo}>edit</button>
-            </>
-          ) : (
-            <div
-              key={todo.id}
-              style={{ backgroundColor: todo.important ? "red" : "white" }}
-            >
-              <br />
-              <input type="checkbox" value={todo.todo} onChange={handleCheck} />
-              <span className={isChecked(todo.todo)}>{todo.todo + "\t"}</span>
-              <label className="task" htmlFor="date">
-                (set deadline):{" "}
-              </label>
-              <input
-                type="date"
-                onChange={(event) => ({ startDate: event.target.value })}
-              />
-              <button onClick={() => handleDelete(todo.id)}>x</button>
-              <br />
-              <input size="15" type="text" placeholder="notes" />
-              <br />
-              <button onClick={() => editIndex(ind)}>Edit</button>
-            </div>
-          )}
-        </div>
-      ))}
+      <div className="tasks">
+        {list.map((todo, ind) => (
+          <div key={ind}>
+            {edit.index === ind ? (
+              <>
+                <input
+                  type="text"
+                  placeholder="enter text"
+                  value={edit.txt}
+                  onChange={(e) => setEdit({ ...edit, txt: e.target.value })}
+                />
+                <button onClick={editTodo}>edit</button>
+              </>
+            ) : (
+              <div
+                key={todo.id}
+                style={{ backgroundColor: todo.important ? "red" : "white" }}
+              >
+                <br />
+                <input
+                  type="checkbox"
+                  value={todo.todo}
+                  onChange={handleCheck}
+                />
+                <span className={isChecked(todo.todo)}>{todo.todo + "\t"}</span>
+                <label className="task" htmlFor="date">
+                  (set deadline):{" "}
+                </label>
+                <input
+                  type="date"
+                  onChange={(event) => ({ startDate: event.target.value })}
+                />
+                <button onClick={() => handleDelete(todo.id)}>x</button>
+                <br />
+                <input size="15" type="text" placeholder="notes" />
+                <br />
+                <button onClick={() => editIndex(ind)}>Edit</button>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
