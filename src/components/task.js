@@ -31,36 +31,26 @@ function Task({ tasks, completeTask, removeTask, editTask }) {
       >
         {todo.task}
       </div>
-      <div className="icons">
-        <button className="remove-task" onClick={() => removeTask(todo.id)}>
-          x
-        </button>
-        <button
-          className="edit-task"
-          onClick={() => setEdit({ id: todo.id, value: todo.task })}
-        >
-          edit
-        </button>
+      <div className="task-buttons">
+        <div className="edit-task">
+          <button onClick={() => setEdit({ id: todo.id, value: todo.task })}>
+            edit
+          </button>
+        </div>
       </div>
+      <div>
+        <textarea
+          className="task-notes"
+          name="taskNotes"
+          placeholder="notes"
+          wrap="hard"
+        />
+      </div>
+      <button className="remove-task" onClick={() => removeTask(todo.id)}>
+        DELETE
+      </button>
     </div>
   ));
-  // <li>
-  //   <label>
-  //     <Checked value={value} />
-  //   </label>
-  // </li>
-  //   const [edit, setEdit] = useState({
-  //     index: "",
-  //     txt: "",
-  //   });
-  //   return tasks.map((task, index) => (
-  //     <div
-  //       className={task.isComplete ? "todo-row complete" : "todo-row"}
-  //       key={index}
-  //     >
-  //       <div key={todo.id} onClick={() => completeTodo(todo.id)}></div>
-  //     </div>
-  //   ));
 }
 
 export default Task;
