@@ -1,4 +1,4 @@
-import React, { useEffect, useState }from "react";
+import React, { useEffect, useState } from "react";
 import "./index.css";
 
 function App() {
@@ -71,6 +71,7 @@ function App() {
       <form onSubmit={(e) => addTodo(e)}>
         <input
           type="text"
+          required
           value={input}
           placeholder="Add a new task"
           onChange={(e) => setInput(e.target.value)} // text entered in todo
