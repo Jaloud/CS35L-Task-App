@@ -1,36 +1,45 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect, useRef } from "react";
 
 function TaskForm(props) {
-    const [input, setInput] = useState('')
+  const [input, setInput] = useState("");
 
-    const handleChange = e => {
-      setInput(e.target.value); // set e to text entered 
-    }
+  const focus = useRef(null);
 
-    const handleSubmit = e => {
-      e.preventDefault(); // doesnt refresh the page when pressing button
+  useEffect(() => {
+    focus.current.focus();
+  });
 
-      // props.onSubmit({
-      //   id: Math.random(), // give task a random id
-      //   text: input
-      // })
+  const handleChange = (event) => {
+    setInput(event.target.value); // set e to text entered
+  };
 
-      // setInput('');
-    };
+  const handleSubmit = (event) => {
+    event.preventDefault(); // doesnt refresh the page when pressing button
+
+    props.onSubmit({
+      id: Math.random(), // give task a random id
+      task: input,
+    });
+
+    setInput("");
+  };
 
   return (
-    <form className='todo-form' onSubmit={handleSubmit}>
-        <input 
+    <form className="todo-form" onSubmit={handleSubmit}>
+      <input
         type="text"
         placeholder="Add a task"
         value={input}
         name="text"
-        className='todo-input'
+        className="todo-input"
         onChange={handleChange}
-    />
-    <button className='todo-button'>Add</button>
-  </form>
-  )
+        ref={focus}
+      />
+      <button className="todo-button" type="Submit">
+        Add
+      </button>
+    </form>
+  );
 }
 
-export default TaskForm
+export default TaskForm;

@@ -1,18 +1,16 @@
 import React, { useState } from "react";
 
-function Checked() {
+function Checked(props) {
+  const { value } = props;
   const [checked, setChecked] = useState(false);
-
-  //   const handleChange = (event) => {
-  //     setChecked(!checked);
-  //   };
 
   return (
     <input
       className="checkBox"
       type="checkBox"
       checked={checked}
-      onChange={() => setChecked(!checked)}
+      value={value}
+      onChange={(checked) => setChecked(!checked)}
     />
   );
 }
