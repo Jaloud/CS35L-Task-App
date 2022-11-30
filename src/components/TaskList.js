@@ -5,8 +5,6 @@ import Task from "./Task";
 function TaskList() {
   const [tasks, setTasks] = useState([]);
 
-  //const [important, setImportant] = useState(false);
-
   const addTask = (todo) => {
     if (!todo.task || /^\s*$/.test(todo.task)) {
       // wont allow whitespace and blank to enter into list
@@ -43,6 +41,19 @@ function TaskList() {
     setTasks(completedTask);
   };
 
+  const handleImpTask = id => {
+    let importantTask = tasks.map((task) => {
+      if(task.id === id) {
+        task.important = !task.important
+      }
+      return task;
+    })
+
+    setTasks(importantTask);
+  }
+
+  let sortedTasks = tasks.sort((a,b) => b.important - a.important) // sort the important Tasks and move to top
+
   return (
     <div>
       <TaskForm onSubmit={addTask} />
@@ -51,6 +62,8 @@ function TaskList() {
         completeTask={handleComplete}
         removeTask={removeTask}
         editTask={editTask}
+        importantTask={handleImpTask}
+        sortedTasks={sortedTasks}
       />
     </div>
   );

@@ -19,6 +19,7 @@ function TaskForm(props) {
     props.onSubmit({
       id: Math.random(), // give task a random id
       task: input,
+      important: false,
     });
 
     setInput("");

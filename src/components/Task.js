@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import TaskForm from "./TaskForm";
 
-function Task({ tasks, completeTask, removeTask, editTask }) {
+function Task({ tasks, completeTask, removeTask, editTask, importantTask, sortedTasks}) {
   const [edit, setEdit] = useState({
     id: null,
     value: "",
@@ -18,10 +18,11 @@ function Task({ tasks, completeTask, removeTask, editTask }) {
     return <TaskForm edit={edit} onSubmit={changeTask} />;
   }
 
-  return tasks.map((todo, index) => (
+  return sortedTasks.map((todo, index) => (
     <div
       className={todo.isComplete ? "todo-row-complete" : "todo-row"}
       key={index}
+      style={todo.important ? {background: "orange"} : {}}
     >
       <div
         className="task-name"
@@ -48,6 +49,7 @@ function Task({ tasks, completeTask, removeTask, editTask }) {
       <button className="remove-task" onClick={() => removeTask(todo.id)}>
         DELETE
       </button>
+      <button onClick={() => importantTask(todo.id)}>!</button>
     </div>
   ));
 }
