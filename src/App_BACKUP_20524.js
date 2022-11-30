@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
 import Header from "./components/header.js";
 import "./index.css";
@@ -161,20 +160,7 @@ function App() {
       ))}
 >>>>>>> 853a457c (fixed checkbox bug)
     </div>
-=======
-import React, {useState} from "react";
-import "./index.css";
-//import TaskForm from './components/TaskForm';
-import TaskList from "./components/TaskList";
-
-function App() {
-  return (
-  <div className='todo-app'>
-    <TaskList />
-
-  </div>
->>>>>>> 172e3d13 (separated components)
   );
 }
- 
+
 export default App;
