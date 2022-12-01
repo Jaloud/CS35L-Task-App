@@ -29,12 +29,13 @@ function Task({
   removeTask,
   editTask,
   importantTask,
+  // handleNotes,
   sortedTasks,
 }) {
 
   const [updatedTaskName, setupdatedTaskName] = useState("");
-  const [dataIdT, setDataId] = useState("");
   const [input, setInput] = useState("");
+  const [dataID, setDataId] = useState("");
 
 
 
@@ -42,9 +43,10 @@ function Task({
 
   const handleEdit =(event) =>{
     console.log("editing mode")
+    console.log(input)
     console.log(event.id)
     db.collection("tasks").doc(event.id).update({
-      taskname: "has been updates",
+      taskname: input,
     }); 
   }
 
@@ -67,16 +69,13 @@ function Task({
     setInput(event.target.value); // set e to text entered
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault(); // doesnt refresh the page when pressing button
-    console.log('Submitted!');
-    // console.log(todoId);
-    // db.collection("tasks").doc(todo.id).update({
-    //   taskname: input,
-    // }); 
-    // setInput("");
-  };
-  
+  // const handleNotes = (id, notesField) => {
+  //   // event.preventDefault
+  //   console.log(id, ":", notesField)
+  //   db.collection("tasks").doc(id).update({
+  //     notes: "New Notes field",
+  // });
+  // }
 
   return sortedTasks.map((todo, index) => (
     <div>
@@ -105,21 +104,27 @@ function Task({
       </div>
       <div className="task-buttons">
         <div>
-          <button
-            className="edit-task"
-            onClick={() => handleEdit(todo)}
-          >
-            edit
-          </button>
-        </div>
-      </div>
-      <div>
-        <div className="textArea">
-          <form onSubmit={handleSubmit(todo)} autoComplete="off">
+        <form  autoComplete="off">
             <input
               type="text"
-              placeholder="notes"
-              todoId={todo}
+              value={input}
+              name="text"
+              className="textarea-input"
+              onChange={handleChange}
+            />
+          <button
+            className="edit-task"
+            onClick={() => handleEdit(todo)} >
+            edit
+          </button>
+        </form>
+        </div>
+      </div>
+      <div >
+        <div className="textArea">
+          <form  autoComplete="off">
+            <input
+              type="text"
               value={input}
               name="text"
               className="textarea-input"

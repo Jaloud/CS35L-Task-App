@@ -64,6 +64,12 @@ function TaskList() {
       important: !nextStatus,
   });
   }
+  const handleNotes = (id, notesField) => {
+    console.log(id, ":", notesField)
+    db.collection("tasks").doc(id).update({
+      notes: notesField,
+  });
+  }
 
 
   useEffect(() => {
@@ -78,7 +84,7 @@ function TaskList() {
   }, []);
 
   let sortedTasks = taskData.sort((a,b) => b.important - a.important) // sort the important Tasks and move to top
-  console.log(sortedTasks)
+  // console.log(sortedTasks)
   return (
     <div>
       <TaskForm 
@@ -90,6 +96,7 @@ function TaskList() {
         removeTask={removeTask}
         editTask={editTask}
         importantTask={handleImpTask}
+        handleNotes={handleNotes}
         sortedTasks={sortedTasks}
       />
     </div>
