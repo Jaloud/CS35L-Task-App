@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TaskForm from "./TaskForm";
 import Task from "./Task";
 
 
 
-// Import the functions you need from the SDKs you need
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs, Firestore } from 'firebase/firestore/lite';
+import { getFirestore, collection, getDocs, Firestore, connectFirestoreEmulator } from 'firebase/firestore/lite';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 // Your web app's Firebase configuration
@@ -22,29 +24,27 @@ const firebaseConfig = {
 
 };
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const fireDatabase = getFirestore(app);
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
-
-const getTasks = async (list) => {
-  const tasksCol = collection(fireDatabase, 'tasks');
-  const tasksdocs = await getDocs(tasksCol)
-  let counter = 0;
-  tasksdocs.forEach(doc => {
-    console.log(list[counter].task)
-    list[counter].task = doc.get("taskName")
-    counter = counter +1;
-    console.log(doc.id, '=>', doc.get("taskName"));
-  });
+// const getTasks = async (list) => {
+//   const tasksCol = collection(fireDatabase, 'tasks');p
+//   const tasksdocs = await getDocs(tasksCol)
+//   let counter = 0;
+//   tasksdocs.forEach(doc => {
+//     console.log(list[counter].task)
+//     list[counter].task = doc.get("taskName")
+//     counter = counter +1;
+//     console.log(doc.id, '=>', doc.get("taskName"));
+//   });
   
-  return tasksdocs
-}
+//   return tasksdocs
+// }
 
 
 
 function TaskList() {
   const [tasks, setTasks] = useState([]);
-  const tslist =  getTasks(tasks)
 
 
   const addTask = (todo) => {
@@ -58,18 +58,14 @@ function TaskList() {
   };
 
   const removeTask = (id) => {
-    const removedTasks = [...tasks].filter((todo) => todo.id !== id);
-
-    setTasks(removedTasks);
+    db.collection("tasks").doc(id).delete();
   };
 
   const editTask = (id, newTask) => {
-    if (!newTask.task || /^\s*$/.test(newTask.task)) {
-      // wont allow whitespace and blank to enter into list
-      return;
-    }
-
-    setTasks((old) => old.map((value) => (value.id === id ? newTask : value)));
+    newTask.preventDefault();
+    db.collection("tasks").doc(id).update({
+        taskname: newTask,
+    });
   };
 
   const handleComplete = (id) => {
@@ -93,6 +89,27 @@ function TaskList() {
 
     setTasks(importantTask);
   }
+
+
+  useEffect(() => {
+    db.collection("tasks").onSnapshot((snapshot) => {
+      let docData
+      snapshot.docs.map((doc) => (
+        console.log(doc.id),
+        docData = doc.data(),
+        console.log(docData.taskname)
+      ));
+
+    setTasks(
+      snapshot.docs.map((doc) => ({
+      id: doc.id,
+      important: docData.important,
+      task: docData.taskname,
+      }))
+    );
+    });
+    // console.log({ tasks });
+  }, []);
 
   let sortedTasks = tasks.sort((a,b) => b.important - a.important) // sort the important Tasks and move to top
 

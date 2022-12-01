@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import TaskForm from "./TaskForm";
 
 function Task({
-  tasks,
   completeTask,
   removeTask,
   editTask,
@@ -16,10 +15,7 @@ function Task({
 
   const changeTask = (newTask) => {
     editTask(edit.id, newTask);
-    setEdit({
-      id: null,
-      value: "",
-    });
+  
   };
   if (edit.id) {
     return <TaskForm edit={edit} onSubmit={changeTask} />;

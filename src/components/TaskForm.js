@@ -43,7 +43,6 @@ function TaskForm(props) {
       taskname: input,
       id: Math.random(), // give task a random id
       important: false,
-
     });
 
     setInput("");
