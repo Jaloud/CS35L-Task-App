@@ -39,6 +39,11 @@ function TaskForm(props) {
   const handleSubmit = (event) => {
     event.preventDefault(); // doesnt refresh the page when pressing button
 
+    if (!input|| /^\s*$/.test(input)) {
+      // wont allow whitespace and blank to enter into list
+      return;
+    }
+
     db.collection("tasks").add({
       taskname: input,
       id: Math.random(), // give task a random id

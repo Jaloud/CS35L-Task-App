@@ -31,17 +31,6 @@ function TaskList() {
   const [tasks, setTasks] = useState([]);
   const [taskData, setTaskData] = useState([]);
 
-
-  const addTask = (todo) => {
-    if (!todo.task || /^\s*$/.test(todo.task)) {
-      // wont allow whitespace and blank to enter into list
-      return;
-    }
-
-    const newTasks = [todo, ...tasks]; // add task to list
-    setTasks(newTasks); // set the value to newTask
-  };
-
   const removeTask = (id) => {
     db.collection("tasks").doc(id).delete();
   };
@@ -88,7 +77,6 @@ function TaskList() {
   return (
     <div>
       <TaskForm 
-      onSubmit={addTask}
       tasks={tasks} 
       />
       <Task
