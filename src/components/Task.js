@@ -33,11 +33,9 @@ function Task({
   sortedTasks,
 }) {
 
-  const [input, setInput] = useState("");
-  const [notes, setNotes] = useState("");
-  const [date, setDate] = useState("");
-
-
+  const [input, setInput] = useState([]);
+  const [notes, setNotes] = useState([]);
+  const [date, setDate] = useState([]);
 
 
 
@@ -139,7 +137,7 @@ function Task({
           className="deadline-date"
           type="text"
           placeholder={getdeadline(todo)}
-          value={date}
+          value={date.id}
           onFocus={(e) => (e.target.type = "date")}
           onBlur={(e) => (e.target.type = "text")}
           onChange={handleDeadlineChange}
@@ -151,7 +149,7 @@ function Task({
         <form  autoComplete="off">
             <input
               type="text"
-              value={input}
+              value={input.id}
               name="text"
               className="textarea-input"
               onChange={handleChange}
@@ -170,7 +168,7 @@ function Task({
             <input
               type="text"
               placeholder={getNotes(todo)}
-              value={notes}
+              value={notes.id}
               onFocus={(e)=> (e.target.value = getNotes(todo)) }
               name="text"
               className="textarea-input"
