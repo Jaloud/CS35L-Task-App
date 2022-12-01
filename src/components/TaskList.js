@@ -2,8 +2,50 @@ import React, { useState } from "react";
 import TaskForm from "./TaskForm";
 import Task from "./Task";
 
+
+
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, getDocs, Firestore } from 'firebase/firestore/lite';
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBhLLd4MOWrS9xXVjp_GGhZ6TCKEVOUhpk",
+  authDomain: "cs35l-task-app.firebaseapp.com",
+  projectId: "cs35l-task-app",
+  storageBucket: "cs35l-task-app.appspot.com",
+  messagingSenderId: "875742275629",
+  appId: "1:875742275629:web:de8cc453b17201e7d070a4",
+  measurementId: "G-6E45S5H59J"
+
+};
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const fireDatabase = getFirestore(app);
+
+
+const getTasks = async (list) => {
+  const tasksCol = collection(fireDatabase, 'tasks');
+  const tasksdocs = await getDocs(tasksCol)
+  let counter = 0;
+  tasksdocs.forEach(doc => {
+    console.log(list[counter].task)
+    list[counter].task = doc.get("taskName")
+    counter = counter +1;
+    console.log(doc.id, '=>', doc.get("taskName"));
+  });
+  
+  return tasksdocs
+}
+
+
+
 function TaskList() {
   const [tasks, setTasks] = useState([]);
+  const tslist =  getTasks(tasks)
+
 
   const addTask = (todo) => {
     if (!todo.task || /^\s*$/.test(todo.task)) {
