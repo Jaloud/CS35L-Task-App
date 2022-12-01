@@ -3,7 +3,6 @@ import TaskForm from "./TaskForm";
 import Task from "./Task";
 
 
-
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
@@ -27,24 +26,10 @@ const firebaseConfig = {
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-// const getTasks = async (list) => {
-//   const tasksCol = collection(fireDatabase, 'tasks');p
-//   const tasksdocs = await getDocs(tasksCol)
-//   let counter = 0;
-//   tasksdocs.forEach(doc => {
-//     console.log(list[counter].task)
-//     list[counter].task = doc.get("taskName")
-//     counter = counter +1;
-//     console.log(doc.id, '=>', doc.get("taskName"));
-//   });
-  
-//   return tasksdocs
-// }
-
-
 
 function TaskList() {
   const [tasks, setTasks] = useState([]);
+  const [taskData, setTaskData] = useState([]);
 
 
   const addTask = (todo) => {
@@ -68,51 +53,32 @@ function TaskList() {
     });
   };
 
-  const handleComplete = (id) => {
-    let completedTask = tasks.map((task) => {
-      if (task.id === id) {
-        task.isComplete = !task.isComplete;
-      }
-      return task;
-    });
-
-    setTasks(completedTask);
+  const handleComplete = (id, nextStatus) => {
+    db.collection("tasks").doc(id).update({
+      checked: !nextStatus,
+  });
   };
 
-  const handleImpTask = id => {
-    let importantTask = tasks.map((task) => {
-      if(task.id === id) {
-        task.important = !task.important
-      }
-      return task;
-    })
-
-    setTasks(importantTask);
+  const handleImpTask = (id, nextStatus) => {
+    db.collection("tasks").doc(id).update({
+      important: !nextStatus,
+  });
   }
 
 
   useEffect(() => {
     db.collection("tasks").onSnapshot((snapshot) => {
-      let docData
-      snapshot.docs.map((doc) => (
-        console.log(doc.id),
-        docData = doc.data(),
-        console.log(docData.taskname)
-      ));
-
-    setTasks(
+    setTaskData(
       snapshot.docs.map((doc) => ({
+      data: doc.data(),
       id: doc.id,
-      important: docData.important,
-      task: docData.taskname,
       }))
     );
     });
-    // console.log({ tasks });
   }, []);
 
-  let sortedTasks = tasks.sort((a,b) => b.important - a.important) // sort the important Tasks and move to top
-
+  let sortedTasks = taskData.sort((a,b) => b.important - a.important) // sort the important Tasks and move to top
+  console.log(sortedTasks)
   return (
     <div>
       <TaskForm 
@@ -120,7 +86,6 @@ function TaskList() {
       tasks={tasks} 
       />
       <Task
-        tasks={tasks}
         completeTask={handleComplete}
         removeTask={removeTask}
         editTask={editTask}
