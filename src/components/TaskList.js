@@ -56,7 +56,10 @@ function TaskList() {
 
   return (
     <div>
-      <TaskForm onSubmit={addTask} />
+      <TaskForm 
+      onSubmit={addTask}
+      tasks={tasks} 
+      />
       <Task
         tasks={tasks}
         completeTask={handleComplete}

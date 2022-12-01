@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 
 function TaskForm(props) {
   const [input, setInput] = useState("");
-
+  
   const focus = useRef(null);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ function TaskForm(props) {
       <form onSubmit={handleSubmit} autoComplete="off">
         <input
           type="text"
-          placeholder="Add a task"
+          placeholder="add a todo"
           value={input}
           name="text"
           className="todo-input"

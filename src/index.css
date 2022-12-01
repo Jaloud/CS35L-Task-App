@@ -32,6 +32,7 @@ body {
   border-bottom: 1px solid rgb(91, 91, 91);
   margin-left: 15px;
   margin-right: 15px;
+  margin-bottom: 15x;
 }
 
 .todo-input {
@@ -47,6 +48,10 @@ body {
 .todo-button {
   margin-bottom: 10px;
 }
+.todo-button:hover {
+  background-color: lightgreen;
+  font-weight: bolder;
+}
 
 .tasks {
   color: black;
@@ -57,7 +62,7 @@ body {
   padding-top: 10px;
   margin-bottom: 5px;
   font-size: larger;
-  font-weight: normal;
+  font-weight: normal;  
 }
 
 .task-notes {
@@ -115,9 +120,25 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+/* button:hover {
   background-color: rgb(165, 165, 165);
   color: white;
+} */
+
+.priority-button {
+    margin-right: 5px;
+    width: 20px;
+    border-width: 1px;
+    border-radius: 49%;
+    padding: 1px;
 }
 
+.priority-button:hover {
+  background-color: orange;
+  font-weight: bolder;
+}
 
+.edit-task:hover {
+  background-color: lightblue;
+  font-weight: bolder;
+}

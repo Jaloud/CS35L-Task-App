@@ -32,8 +32,8 @@ function Task({ tasks, completeTask, removeTask, editTask, importantTask, sorted
         {todo.task}
       </div>
       <div className="task-buttons">
-        <div className="edit-task">
-          <button onClick={() => setEdit({ id: todo.id, value: todo.task })}>
+        <div>
+          <button className="edit-task" onClick={() => setEdit({ id: todo.id, value: todo.task })}>
             edit
           </button>
         </div>
@@ -49,7 +49,7 @@ function Task({ tasks, completeTask, removeTask, editTask, importantTask, sorted
       <button className="remove-task" onClick={() => removeTask(todo.id)}>
         DELETE
       </button>
-      <button onClick={() => importantTask(todo.id)}>!</button>
+      <button className="priority-button" onClick={() => importantTask(todo.id)}>!!!</button>
     </div>
   ));
 }
