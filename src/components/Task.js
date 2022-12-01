@@ -34,18 +34,18 @@ function Task({
 
   const [updatedTaskName, setupdatedTaskName] = useState("");
   const [dataIdT, setDataId] = useState("");
+  const [input, setInput] = useState("");
+
+
 
 
 
   const handleEdit =(event) =>{
     console.log("editing mode")
-    (editTask(event.id))
-  //   event.preventDefault();
-  //   db.collection("tasks").doc(dataIdT).update({
-  //     taskname: updatedTaskName,
-  //   }); 
-  // setupdatedTaskName("");
-  // setDataId("");
+    console.log(event.id)
+    db.collection("tasks").doc(event.id).update({
+      taskname: "has been updates",
+    }); 
   }
 
 
@@ -62,6 +62,20 @@ function Task({
     const data = par.data
     return data.important
   }
+
+  const handleChange = (event) => {
+    setInput(event.target.value); // set e to text entered
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault(); // doesnt refresh the page when pressing button
+    console.log('Submitted!');
+    // console.log(todoId);
+    // db.collection("tasks").doc(todo.id).update({
+    //   taskname: input,
+    // }); 
+    // setInput("");
+  };
   
 
   return sortedTasks.map((todo, index) => (
@@ -93,19 +107,30 @@ function Task({
         <div>
           <button
             className="edit-task"
-            onClick={() => handleEdit()}
+            onClick={() => handleEdit(todo)}
           >
             edit
           </button>
         </div>
       </div>
       <div>
-        <textarea
-          className="task-notes"
-          name="taskNotes"
-          placeholder="notes"
-          wrap="hard"
-        />
+        <div className="textArea">
+          <form onSubmit={handleSubmit(todo)} autoComplete="off">
+            <input
+              type="text"
+              placeholder="notes"
+              todoId={todo}
+              value={input}
+              name="text"
+              className="textarea-input"
+              onChange={handleChange}
+            />
+            <br />
+            <button className="textarea-button" type="Submit">
+              Add
+            </button>
+          </form>
+       </div>
       </div>
       <button className="remove-task" onClick={() => removeTask(todo.id)}>
         DELETE
