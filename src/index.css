@@ -8,8 +8,8 @@ body {
   font-family: "arial";
   background-color: rgb(229, 225, 219);
 
-  margin-right: 30%;
-  margin-left: 30%;
+  margin-right: 20%;
+  margin-left: 20%;
 
   border-style: solid;
   border-radius: 1%;
@@ -18,9 +18,8 @@ body {
 }
 
 .header {
-  color: black;
   text-align: center;
-  border-bottom: 1px solid rgb(0, 0, 0);
+  border-bottom: 1px solid rgb(91, 91, 91);
   margin-left: 15px;
   margin-right: 15px;
 }
@@ -28,10 +27,7 @@ body {
 .task-form {
   font-size: larger;
   text-align: center;
-  margin-top: 10px;
-  margin-left: 15px;
-  margin-right: 15px;
-  margin-bottom: 15x;
+  margin: 15px 15px;
 }
 
 .todo-input {
@@ -39,30 +35,17 @@ body {
   border-style: solid;
   border-width: 1px;
   padding: 7px 7px;
-  margin-bottom: 3px;
   font-size: medium;
   font-weight: normal;
 }
 
-.todo-button {
-  margin-bottom: 10px;
-}
 .todo-button:hover {
   background-color: lightgreen;
   font-weight: bolder;
 }
 
-.tasks {
-  color: black;
-}
-
 .task-name {
-  margin-left: 10px;
-  margin-right: 70%;
-  padding-top: 10px;
-  margin-bottom: 5px;
   font-size: larger;
-  font-weight: normal;
 }
 
 .task-notes {
@@ -72,10 +55,10 @@ body {
   border-radius: 4px;
   font-size: 16px;
   resize: none;
+  font-family: "arial";
 }
 
 .deadline {
-  margin-right: 10px;
   text-align: right;
   font-size: 13px;
 }
@@ -83,9 +66,7 @@ body {
 .deadline-button {
   padding: 1px 4px;
   border: 1px solid rgb(91, 91, 91);
-  border-radius: 6px;
-  margin-left: 60%;
-  margin-right: 3px;
+  border-radius: 5px;
   background-color: rgb(214, 224, 233);
   height: 100px;
 }
@@ -109,12 +90,10 @@ textarea {
 }
 
 .remove-task {
-  margin-left: 45%;
   margin-bottom: 10px;
 }
 
 .remove-task:hover {
-  margin-left: 45%;
   margin-bottom: 10px;
   background-color: rgb(252, 102, 102);
   font-weight: bolder;
@@ -128,7 +107,7 @@ textarea {
 
 .todo-row-complete {
   text-decoration: line-through;
-  border-bottom: 1px solid rgb(91, 91, 91);
+  border-top: 1px solid rgb(91, 91, 91);
   margin-left: 15px;
   margin-right: 15px;
 }
@@ -140,25 +119,10 @@ textarea {
 
 button {
   background-color: rgb(214, 224, 233);
-  color: black;
   padding: 1px 4px;
-  border-radius: 6px;
-  border-color: rgb(44, 44, 44);
-  border-width: 1px;
+  border-radius: 5px;
+  border: 1px solid rgb(44, 44, 44);
   cursor: pointer;
-}
-
-/* button:hover {
-  background-color: rgb(165, 165, 165);
-  color: white;
-} */
-
-.priority-button {
-  margin-right: 5px;
-  width: 20px;
-  border-width: 1px;
-  border-radius: 49%;
-  padding: 1px;
 }
 
 .priority-button:hover {
@@ -169,4 +133,8 @@ button {
 .edit-task:hover {
   background-color: lightblue;
   font-weight: bolder;
+}
+
+.bottom-buttons {
+  text-align: center;
 }
