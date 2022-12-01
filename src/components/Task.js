@@ -35,6 +35,8 @@ function Task({
 
   const [input, setInput] = useState("");
   const [notes, setNotes] = useState("");
+  const [date, setDate] = useState("");
+
 
 
 
@@ -60,6 +62,16 @@ function Task({
     }); 
   }
 
+  const handleDeadlines =(e , todo) =>{
+    e.preventDefault(); // doesnt refresh the page when pressing button
+    console.log("editing mode")
+    console.log(date)
+    console.log(todo.id)
+    db.collection("tasks").doc(todo.id).update({
+      date: date,
+    }); 
+  }
+
 
 
   const taskname = (par) =>{
@@ -78,6 +90,10 @@ function Task({
     const data = par.data
     return data.notes
   }
+  const getdeadline = (par) =>{
+    const data = par.data
+    return data.date
+  }
 
   const handleChange = (event) => {
     setInput(event.target.value); // set e to text entered
@@ -86,6 +102,10 @@ function Task({
     setNotes(event.target.value); // set e to text entered
   };
 
+  const handleDeadlineChange = (event) => {
+    setDate(event.target.value)
+  }
+ 
   // const handleNotes = (id, notesField) => {
   //   // event.preventDefault
   //   console.log(id, ":", notesField)
@@ -110,14 +130,21 @@ function Task({
         </div>
       </div>
       <div className="deadline">
-        <label className="deadline-button">set deadline:</label>
-        <input
+      <form  autoComplete="off">
+            <button className="deadline-button"
+              onClick={(e) => handleDeadlines(e,todo)} >
+              set deadline
+            </button>
+          <input
           className="deadline-date"
           type="text"
-          placeholder="date"
+          placeholder={getdeadline(todo)}
+          value={date}
           onFocus={(e) => (e.target.type = "date")}
           onBlur={(e) => (e.target.type = "text")}
-        />
+          onChange={handleDeadlineChange}
+          />
+        </form>
       </div>
       <div className="task-buttons">
         <div>
