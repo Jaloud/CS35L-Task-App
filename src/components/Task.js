@@ -1,43 +1,82 @@
 import React, { useState } from "react";
 import TaskForm from "./TaskForm";
 
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, getDocs, Firestore, connectFirestoreEmulator } from 'firebase/firestore/lite';
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBhLLd4MOWrS9xXVjp_GGhZ6TCKEVOUhpk",
+  authDomain: "cs35l-task-app.firebaseapp.com",
+  projectId: "cs35l-task-app",
+  storageBucket: "cs35l-task-app.appspot.com",
+  messagingSenderId: "875742275629",
+  appId: "1:875742275629:web:de8cc453b17201e7d070a4",
+  measurementId: "G-6E45S5H59J"
+
+};
+// Initialize Firebase
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
 function Task({
-  tasks,
   completeTask,
   removeTask,
   editTask,
   importantTask,
   sortedTasks,
 }) {
-  const [edit, setEdit] = useState({
-    id: null,
-    value: "",
-  });
 
-  const changeTask = (newTask) => {
-    editTask(edit.id, newTask);
-    setEdit({
-      id: null,
-      value: "",
-    });
-  };
-  if (edit.id) {
-    return <TaskForm edit={edit} onSubmit={changeTask} />;
+  const [updatedTaskName, setupdatedTaskName] = useState("");
+  const [dataIdT, setDataId] = useState("");
+
+
+
+  const handleEdit =(event) =>{
+    console.log("editing mode")
+    (editTask(event.id))
+  //   event.preventDefault();
+  //   db.collection("tasks").doc(dataIdT).update({
+  //     taskname: updatedTaskName,
+  //   }); 
+  // setupdatedTaskName("");
+  // setDataId("");
   }
+
+
+
+  const taskname = (par) =>{
+    const data = par.data
+    return data.taskname
+  }
+  const iscompleted = (par) =>{
+    const data = par.data
+    return data.checked
+  }
+  const isImporant = (par) =>{
+    const data = par.data
+    return data.important
+  }
+  
 
   return sortedTasks.map((todo, index) => (
     <div>
       <div
-        className={todo.isComplete ? "todo-row-complete" : "todo-row"}
+        className={iscompleted(todo) ? "todo-row-complete" : "todo-row"}
         key={index}
-        style={todo.important ? { background: "orange" } : {}}
+        style={isImporant(todo) ? { background: "orange" } : {}}
       >
         <div
           className="task-name"
           key={todo.id}
-          onClick={() => completeTask(todo.id)}
+          onClick={() => completeTask(todo.id, iscompleted(todo))}
         >
-          {todo.task}
+          { taskname(todo)}
         </div>
       </div>
       <div className="deadline">
@@ -54,7 +93,7 @@ function Task({
         <div>
           <button
             className="edit-task"
-            onClick={() => setEdit({ id: todo.id, value: todo.task })}
+            onClick={() => handleEdit()}
           >
             edit
           </button>
@@ -73,7 +112,7 @@ function Task({
       </button>
       <button
         className="priority-button"
-        onClick={() => importantTask(todo.id)}
+        onClick={() => importantTask(todo.id, isImporant(todo))}
       >
         !!!
       </button>
