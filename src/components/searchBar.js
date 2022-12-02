@@ -50,9 +50,7 @@ function SearchBar(input) {
     tsName = tsName.toLowerCase();
     var ntes = getNotes(entry);
     ntes = ntes.toLowerCase();
-    return (tsName.includes(newInput) || 
-            ntes.includes(newInput)      
-    );
+    return tsName.includes(newInput) || ntes.includes(newInput);
   });
   return (
     <div>

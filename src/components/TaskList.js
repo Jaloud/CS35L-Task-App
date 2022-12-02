@@ -2,12 +2,17 @@ import React, { useState, useEffect } from "react";
 import TaskForm from "./TaskForm";
 import Task from "./Task";
 
-
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import 'firebase/compat/firestore';
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import "firebase/compat/firestore";
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs, Firestore, connectFirestoreEmulator } from 'firebase/firestore/lite';
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  Firestore,
+  connectFirestoreEmulator,
+} from "firebase/firestore/lite";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 // Your web app's Firebase configuration
@@ -19,13 +24,11 @@ const firebaseConfig = {
   storageBucket: "cs35l-task-app.appspot.com",
   messagingSenderId: "875742275629",
   appId: "1:875742275629:web:de8cc453b17201e7d070a4",
-  measurementId: "G-6E45S5H59J"
-
+  measurementId: "G-6E45S5H59J",
 };
 // Initialize Firebase
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
-
 
 function TaskList() {
   const [tasks, setTasks] = useState([]);
@@ -38,47 +41,44 @@ function TaskList() {
   const editTask = (id, newTask) => {
     newTask.preventDefault();
     db.collection("tasks").doc(id).update({
-        taskname: newTask,
+      taskname: newTask,
     });
   };
 
   const handleComplete = (id, nextStatus) => {
     db.collection("tasks").doc(id).update({
       checked: !nextStatus,
-  });
+    });
   };
 
   const handleImpTask = (id, nextStatus) => {
     db.collection("tasks").doc(id).update({
       important: !nextStatus,
-  });
-  }
+    });
+  };
   const handleNotes = (id, notesField) => {
-    console.log(id, ":", notesField)
+    console.log(id, ":", notesField);
     db.collection("tasks").doc(id).update({
       notes: notesField,
-  });
-  }
-
+    });
+  };
 
   useEffect(() => {
     db.collection("tasks").onSnapshot((snapshot) => {
-    setTaskData(
-      snapshot.docs.map((doc) => ({
-      data: doc.data(),
-      id: doc.id,
-      }))
-    );
+      setTaskData(
+        snapshot.docs.map((doc) => ({
+          data: doc.data(),
+          id: doc.id,
+        }))
+      );
     });
   }, []);
 
-  let sortedTasks = taskData.sort((a,b) => b.important - a.important) // sort the important Tasks and move to top
+  let sortedTasks = taskData.sort((a, b) => b.important - a.important); // sort the important Tasks and move to top
   // console.log(sortedTasks)
   return (
     <div>
-      <TaskForm 
-      tasks={tasks} 
-      />
+      <TaskForm tasks={tasks} />
       <Task
         completeTask={handleComplete}
         removeTask={removeTask}
