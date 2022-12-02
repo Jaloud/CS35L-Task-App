@@ -1,11 +1,17 @@
 import React, { useState } from "react";
 import TaskForm from "./TaskForm";
 
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import 'firebase/compat/firestore';
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import "firebase/compat/firestore";
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs, Firestore, connectFirestoreEmulator } from 'firebase/firestore/lite';
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  Firestore,
+  connectFirestoreEmulator,
+} from "firebase/firestore/lite";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 // Your web app's Firebase configuration
@@ -17,8 +23,7 @@ const firebaseConfig = {
   storageBucket: "cs35l-task-app.appspot.com",
   messagingSenderId: "875742275629",
   appId: "1:875742275629:web:de8cc453b17201e7d070a4",
-  measurementId: "G-6E45S5H59J"
-
+  measurementId: "G-6E45S5H59J",
 };
 // Initialize Firebase
 const firebaseApp = firebase.initializeApp(firebaseConfig);
@@ -32,66 +37,60 @@ function Task({
   // handleNotes,
   sortedTasks,
 }) {
-
   const [input, setInput] = useState([]);
   const [notes, setNotes] = useState([]);
   const [date, setDate] = useState([]);
 
-
-
-
-  const handleEdit =(e , todo) =>{
+  const handleEdit = (e, todo) => {
     e.preventDefault(); // doesnt refresh the page when pressing button
-    console.log("editing mode")
-    console.log(input)
-    console.log(todo.id)
+    console.log("editing mode");
+    console.log(input);
+    console.log(todo.id);
     db.collection("tasks").doc(todo.id).update({
       taskname: input,
-    }); 
-  }
+    });
+  };
 
-  const handleNotes =(e , todo) =>{
+  const handleNotes = (e, todo) => {
     e.preventDefault(); // doesnt refresh the page when pressing button
-    console.log("editing mode")
-    console.log(notes)
-    console.log(todo.id)
+    console.log("editing mode");
+    console.log(notes);
+    console.log(todo.id);
     db.collection("tasks").doc(todo.id).update({
       notes: notes,
-    }); 
-  }
+    });
+  };
 
-  const handleDeadlines =(e , todo) =>{
+  const handleDeadlines = (e, todo) => {
     e.preventDefault(); // doesnt refresh the page when pressing button
-    console.log("editing mode")
-    console.log(date)
-    console.log(todo.id)
+    console.log("editing mode");
+    console.log(date);
+    console.log(todo.id);
     db.collection("tasks").doc(todo.id).update({
       date: date,
-    }); 
-  }
+    });
+  };
 
-
-
-  const taskname = (par) =>{
-    const data = par.data
-    return data.taskname
-  }
-  const iscompleted = (par) =>{
-    const data = par.data
-    return data.checked
-  }
-  const isImporant = (par) =>{
-    const data = par.data
-    return data.important
-  }
-  const getNotes = (par) =>{
-    const data = par.data
-    return data.notes
-  }
-  const getdeadline = (par) =>{
-    const data = par.data
-    return data.date
-  }
+  const taskname = (par) => {
+    const data = par.data;
+    return data.taskname;
+  };
+  const iscompleted = (par) => {
+    const data = par.data;
+    return data.checked;
+  };
+  const isImporant = (par) => {
+    const data = par.data;
+    return data.important;
+  };
+  const getNotes = (par) => {
+    const data = par.data;
+    return data.notes;
+  };
+  const getdeadline = (par) => {
+    const data = par.data;
+    return data.date;
+  };
 
   const handleChange = (event) => {
     setInput(event.target.value); // set e to text entered
@@ -101,9 +100,9 @@ function Task({
   };
 
   const handleDeadlineChange = (event) => {
-    setDate(event.target.value)
-  }
- 
+    setDate(event.target.value);
+  };
+
   // const handleNotes = (id, notesField) => {
   //   // event.preventDefault
   //   console.log(id, ":", notesField)
@@ -124,29 +123,31 @@ function Task({
           key={todo.id}
           onClick={() => completeTask(todo.id, iscompleted(todo))}
         >
-          { taskname(todo)}
+          {taskname(todo)}
         </div>
       </div>
       <div className="deadline">
-      <form  autoComplete="off">
-            <button className="deadline-button"
-              onClick={(e) => handleDeadlines(e,todo)} >
-              set deadline
-            </button>
+        <form autoComplete="off">
+          <button
+            className="deadline-button"
+            onClick={(e) => handleDeadlines(e, todo)}
+          >
+            set deadline
+          </button>
           <input
-          className="deadline-date"
-          type="text"
-          placeholder={getdeadline(todo)}
-          value={date.id}
-          onFocus={(e) => (e.target.type = "date")}
-          onBlur={(e) => (e.target.type = "text")}
-          onChange={handleDeadlineChange}
+            className="deadline-date"
+            type="text"
+            placeholder={getdeadline(todo)}
+            value={date.id}
+            onFocus={(e) => (e.target.type = "date")}
+            onBlur={(e) => (e.target.type = "text")}
+            onChange={handleDeadlineChange}
           />
         </form>
       </div>
       <div className="task-buttons">
         <div>
-        <form  autoComplete="off">
+          <form autoComplete="off">
             <input
               type="text"
               value={input.id}
@@ -154,43 +155,39 @@ function Task({
               className="textarea-input"
               onChange={handleChange}
             />
-          <button
-            className="edit-task"
-            onClick={(e) => handleEdit(e,todo)} >
-            edit
-          </button>
-        </form>
+            <button className="edit-task" onClick={(e) => handleEdit(e, todo)}>
+              edit
+            </button>
+          </form>
         </div>
-      </div>
-      <div >
         <div className="textArea">
-        <form  autoComplete="off">
+          <form autoComplete="off">
             <input
               type="text"
               placeholder={getNotes(todo)}
               value={notes.id}
-              onFocus={(e)=> (e.target.value = getNotes(todo)) }
+              onFocus={(e) => (e.target.value = getNotes(todo))}
               name="text"
               className="textarea-input"
               onChange={handleNotesChange}
             />
-          <button
-            className="edit-task"
-            onClick={(e) => handleNotes(e,todo)} >
-            Add Notes
-          </button>
-        </form>
-       </div>
+            <button className="edit-task" onClick={(e) => handleNotes(e, todo)}>
+              add notes
+            </button>
+          </form>
+        </div>
       </div>
-      <button className="remove-task" onClick={() => removeTask(todo.id)}>
-        DELETE
-      </button>
-      <button
-        className="priority-button"
-        onClick={() => importantTask(todo.id, isImporant(todo))}
-      >
-        !!!
-      </button>
+      <div className="delete-priority-buttons">
+        <button className="remove-task" onClick={() => removeTask(todo.id)}>
+          DELETE
+        </button>
+        <button
+          className="priority-button"
+          onClick={() => importantTask(todo.id, isImporant(todo))}
+        >
+          !!!
+        </button>
+      </div>
     </div>
   ));
 }
