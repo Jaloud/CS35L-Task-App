@@ -38,6 +38,10 @@ function Task({
     console.log("editing mode");
     console.log(input);
     console.log(todo.id);
+    if (input.length === 0){
+      console.log("Glitch !!!!")
+      return;
+    }
     db.collection("tasks").doc(todo.id).update({
       taskname: input,
     });
