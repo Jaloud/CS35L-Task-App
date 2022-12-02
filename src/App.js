@@ -19,11 +19,8 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
-      <div className="tasks">
-        <TaskList />
-        <h1 className="searbarHeader">Search</h1>
-        <div className="s-form">
+      <h1 class="header" >Search for Tasks</h1>
+         <div className="s-form">
           <input
             class="s-input"
             type="text"
@@ -33,6 +30,9 @@ function App() {
           />
         </div>
         <SearchBar input={inputText} />
+      <Header />
+      <div className="tasks">
+        <TaskList />
       </div>
     </div>
   );
