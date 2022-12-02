@@ -49,7 +49,7 @@ function SearchBar(input) {
     var tsName = taskname(entry);
     tsName = tsName.toLowerCase();
     var ntes = getNotes(entry);
-    // ntes = ntes.toLowerCase();
+    ntes = ntes.toLowerCase();
     return (tsName.includes(newInput) || 
             ntes.includes(newInput)      
     );
