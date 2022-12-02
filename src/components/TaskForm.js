@@ -3,13 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
-import { initializeApp } from "firebase/app";
-import {
-  getFirestore,
-  collection,
-  getDocs,
-  Firestore,
-} from "firebase/firestore/lite";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 // Your web app's Firebase configuration

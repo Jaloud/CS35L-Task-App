@@ -5,14 +5,6 @@ import Task from "./Task";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
-import { initializeApp } from "firebase/app";
-import {
-  getFirestore,
-  collection,
-  getDocs,
-  Firestore,
-  connectFirestoreEmulator,
-} from "firebase/firestore/lite";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 // Your web app's Firebase configuration
@@ -74,7 +66,16 @@ function TaskList() {
     });
   }, []);
 
-  let sortedTasks = taskData.sort((a, b) => b.important - a.important); // sort the important Tasks and move to top
+  const isImporant = (par) => {
+    const data = par.data;
+    return data.important;
+  };
+  const iscompleted = (par) => {
+    const data = par.data;
+    return data.checked;
+  };
+
+  let sortedTasks = taskData.sort((a, b) => (isImporant(b) - isImporant(a) || iscompleted(a) - iscompleted(b) )); // sort the important Tasks and move to top
   // console.log(sortedTasks)
   return (
     <div>
