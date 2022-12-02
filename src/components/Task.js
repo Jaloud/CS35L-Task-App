@@ -103,14 +103,6 @@ function Task({
   const handleDeadlineChange = (event) => {
     setDate(event.target.value)
   }
- 
-  // const handleNotes = (id, notesField) => {
-  //   // event.preventDefault
-  //   console.log(id, ":", notesField)
-  //   db.collection("tasks").doc(id).update({
-  //     notes: "New Notes field",
-  // });
-  // }
 
   return sortedTasks.map((todo, index) => (
     <div>
